@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +12,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -25,9 +33,29 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}
       >
-        {children}
+        <div className="min-h-screen bg-white">
+          {/* Header */}
+          <header className="bg-white border-b-1 border-gray-300">
+            <Link
+              href="/"
+              className="flex items-center justify-center gap-3 px-6 pt-6 pb-4"
+            >
+              <Image
+                src="/blackv1.png"
+                alt="V1 Supplies Co. Logo"
+                width={48}
+                height={24}
+                className="h-8 w-auto"
+              />
+              <h1 className="text-4xl font-medium font-[family-name:var(--font-instrument-serif)]">
+                V1 Supply Co.
+              </h1>
+            </Link>
+          </header>
+          {children}
+        </div>
       </body>
     </html>
   );

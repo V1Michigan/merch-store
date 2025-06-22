@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Black V1 Crewneck",
+    "price": 45,
+    "image": "/black-crewneck.png",
+    "description": "V1's classic look, in black and gold.",
+    "category": "Crewnecks"
+  },
+  {
+    "id": 2,
+    "name": "Navy V1 Crewneck",
+    "price": 45,
+    "image": "/navy-crewneck.png",
+    "description": "V1's classic look, in navy and white.",
+    "category": "Crewneck"
+  },
+  {
+    "id": 3,
+    "name": "'Asymmetric Upside' Hoodie",
+    "price": 40,
+    "image": "/asym upside.png",
+    "description": "Move fast and break things.",
+    "category": "Hoodie."
+  },
+  {
+    "id": 4,
+    "name": "Gray Striped Pullover",
+    "price": 40,
+    "image": "/placeholder.svg?height=400&width=300",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "category": "Crewnecks"
+  },
+  {
+    "id": 5,
+    "name": "White Cotton Tee",
+    "price": 40,
+    "image": "/placeholder.svg?height=400&width=300",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "category": "T-Shirts"
+  },
+  {
+    "id": 6,
+    "name": "Cream Cable Knit",
+    "price": 40,
+    "image": "/placeholder.svg?height=400&width=300",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "category": "Misc."
+  }
+] 
