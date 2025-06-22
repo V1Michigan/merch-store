@@ -1,6 +1,3 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { notFound } from "next/navigation"
 import { ProductPageClient } from "./product-client"
 import products from "@/data/products.json"
