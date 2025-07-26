@@ -20,17 +20,49 @@ interface ProductPageClientProps {
 export function ProductPageClient({ product }: ProductPageClientProps) {
   const [selectedSize, setSelectedSize] = useState<string>("")
   const [selectedPickup, setSelectedPickup] = useState<string>("")
-  
+
   const sizes = ["S", "M", "L", "XL"]
   const pickupLocations = ["Ann Arbor", "SF", "NYC"]
-  
+
   const isCheckoutEnabled = selectedSize && selectedPickup
 
-  const handleCheckout = () => {
-    if (isCheckoutEnabled) {
-      alert(`Checkout initiated!\nProduct: ${product.name}\nSize: ${selectedSize}\nPickup: ${selectedPickup}\nPrice: $${product.price}`)
+const handleCheckout = async () => {
+  if (!isCheckoutEnabled) return;
+
+  const payload = {
+    product: product.name,
+    size: selectedSize,
+    pickup: selectedPickup,
+    price: product.price,
+    stripe_price: product.price * 100,
+    //email: user.email, // optional but useful
+  };
+
+  try {
+    const response = await fetch('/api/start-checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await response.json();
+    console.log(result);
+
+    if (result.link) {
+      // Redirect to Stripe Checkout
+      window.location.href = result.link;
+    } else {
+      alert("Something went wrong. No redirect URL.");
     }
+
+  } catch (err) {
+    console.error('Checkout error:', err);
+    alert('Checkout failed. Please try again.');
   }
+};
+
 
   return (
     <div className="bg-gray-50">
@@ -131,4 +163,4 @@ export function ProductPageClient({ product }: ProductPageClientProps) {
       </main>
     </div>
   );
-} 
+}
