@@ -20,9 +20,19 @@ interface ProductPageClientProps {
 export function ProductPageClient({ product }: ProductPageClientProps) {
   const [selectedSize, setSelectedSize] = useState<string>("")
   const [selectedPickup, setSelectedPickup] = useState<string>("")
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0)
   
   const sizes = ["S", "M", "L", "XL"]
   const pickupLocations = ["Ann Arbor", "SF", "NYC"]
+  
+  // Placeholder images for gallery
+  const galleryImages = [
+    product.image || "/placeholder.svg",
+    "/placeholder.svg?height=600&width=400&text=Image2",
+    "/placeholder.svg?height=600&width=400&text=Image3",
+    "/placeholder.svg?height=600&width=400&text=Image4",
+    "/placeholder.svg?height=600&width=400&text=Image5"
+  ]
   
   const isCheckoutEnabled = selectedSize && selectedPickup
 
@@ -38,15 +48,40 @@ export function ProductPageClient({ product }: ProductPageClientProps) {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Image */}
-          <div className="aspect-[3/4] relative overflow-hidden rounded-lg bg-gray-200">
-            <Image
-              src={product.image || "/placeholder.svg"}
-              alt={product.name}
-              fill
-              className="object-cover"
-              priority
-            />
+          {/* Product Image Gallery */}
+          <div className="flex gap-4">
+            {/* Thumbnail Column */}
+            <div className="flex flex-col gap-3 w-20">
+              {galleryImages.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedImageIndex(index)}
+                  className={`aspect-[3/4] relative overflow-hidden rounded-lg border-2 transition-all ${
+                    selectedImageIndex === index 
+                      ? "border-black" 
+                      : "border-gray-200 hover:border-gray-300"
+                  }`}
+                >
+                  <Image
+                    src={image}
+                    alt={`${product.name} view ${index + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+            
+            {/* Main Image */}
+            <div className="flex-1 aspect-[3/4] relative overflow-hidden rounded-lg bg-gray-200">
+              <Image
+                src={galleryImages[selectedImageIndex]}
+                alt={product.name}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
           </div>
 
           {/* Product Details */}
@@ -113,7 +148,7 @@ export function ProductPageClient({ product }: ProductPageClientProps) {
             {/* Checkout Button */}
             <div className="pt-4">
               <Button
-                className={`w-full font-medium py-3 rounded-md transition-colors ${
+                className={`w-full font-medium py-5 rounded-md transition-colors ${
                   isCheckoutEnabled
                     ? "bg-black text-white hover:bg-gray-800 cursor-pointer"
                     : "bg-gray-200 text-gray-400 cursor-not-allowed"
